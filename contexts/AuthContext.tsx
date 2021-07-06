@@ -42,17 +42,15 @@ export function AuthProvider({ children }: AuthProviderProps) {
   useEffect(()=>{
     authChannel = new BroadcastChannel('auth')
 
-    authChannel.onmessage((message) => {
+    authChannel.onmessage = (message) => {
       switch (message.data) {
         case 'signOut':
-          signOut()
-          authChannel.close()
+          signOut();
           break;
-     
         default:
           break;
       }
-    })
+    }
   }, [])
 
   useEffect(() => {
